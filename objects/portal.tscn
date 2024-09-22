@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://cnt3bt1pyrehk"]
+
+[ext_resource type="Script" path="res://scripts/Portal.cs" id="1_b5873"]
+[ext_resource type="Shader" path="res://assets/shaders/portal.gdshader" id="2_w7bw7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v64lh"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jlppd"]
+material = SubResource("StandardMaterial3D_v64lh")
+
+[sub_resource type="BoxMesh" id="BoxMesh_iclht"]
+size = Vector3(0.1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_neiub"]
+size = Vector3(1.5, 2.5, 0.01)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vb7bb"]
+render_priority = 0
+shader = ExtResource("2_w7bw7")
+
+[sub_resource type="QuadMesh" id="QuadMesh_767vf"]
+size = Vector2(1.5, 3)
+
+[node name="Portal" type="Node3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.0157194, -0.013917, 0.00357175)
+script = ExtResource("1_b5873")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+cull_mask = 1048573
+fov = 90.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Camera3D"]
+visible = false
+mesh = SubResource("BoxMesh_jlppd")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewport/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.14819e-08, 0, -0.474498)
+visible = false
+mesh = SubResource("BoxMesh_iclht")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_neiub")
+
+[node name="Screen" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_vb7bb")
+mesh = SubResource("QuadMesh_767vf")

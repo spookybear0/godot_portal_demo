@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://crlf2je0kyy2r"]
+
+[ext_resource type="Material" uid="uid://i6ttymvfh5li" path="res://addons/kenney_prototype_tools/materials/green/material_09.tres" id="1_78fw0"]
+[ext_resource type="Script" path="res://scripts/Ball.cs" id="1_uf8ns"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vi4ur"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_0xwg8"]
+
+[node name="Ball" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3821, 3.67908, -3.3768)
+mass = 10.0
+script = ExtResource("1_uf8ns")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_vi4ur")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+material_override = ExtResource("1_78fw0")
+mesh = SubResource("SphereMesh_0xwg8")
